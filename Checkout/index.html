@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html lang = "en">
+
+    <head>
+
+        <title> Store Front Name </title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">        
+
+        <link rel = "stylesheet" href = "../index.css">
+        <script src = "index.js" defer> </script>
+
+        <!-- Importing Axios -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <!-- Importing Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- Importing jquery for collapsible checkout -->
+        <script type = "text/javascript" src = "jquery-1.9.1.js"> </script>
+        <script type = "text/javascript" src = "jquery.collapsible.min.js"> </script>
+    
+    </head>
+
+    <body>
+
+        <header class = "header"> 
+
+            <div class = "headerIcons">
+                <div class = "sideBarPullOut">
+                    <!-- Needed to keep the spacing in the header even though Side Bar Pullout not on this page. -->
+                </div>
+
+                <a class = "myAccount" href = "#" data-toggle="modal" data-target="#exampleModalCenter" data-backdrop="static" data-keyboard="false">
+                    <svg width="40" height="40" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                        <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                    </svg> <!-- BootStrap My Account Icon -->
+                    <br> My Account
+                </a>
+                
+                <!-- Login Modal Popup - Imported from Bootstrap -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content" id = "account">
+                            
+                            <div class="modal-header">
+                                <svg id = "accountIcon" width="40" height="40" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                                    <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                                </svg> <!-- BootStrap My Account Icon -->
+
+                                <h2 class="modal-title" id="exampleModalLongTitle"> <strong> Confection Perfection Account </strong> </h2>
+                                <button type="button" class="close" id = "xLogin" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class = "signIn"> 
+                                    <h3> <strong> Sign In </strong> </h3>
+                                    <form class = "accountSignInForm">
+                                        <label for = "username"> Username </label>
+                                        <input id = "username" placeholder = "Enter your username" type = "text" required>
+                                        
+                                        <label for = "password"> Password </label>
+                                        <input id = "password" placeholder = "Enter your password" type = "password" required>
+
+                                        <button type="submit" class="btn btn-primary" id = "submitLogin"> <strong> Sign in </strong> </button> 
+
+                                    </form>
+                                </div>
+
+                                <div class = "register"> 
+                                    <h3> <strong> Register </strong> </h3>
+                                    <form class = "registerForm">
+                                        <label for = "newUsername"> Username </label>
+                                        <input id = "newUsername" placeholder = "Enter your username" type = "text" required>
+                                        
+                                        <label for = "passwordRegister"> Password </label>
+                                        <input id = "passwordRegister" placeholder = "Enter your password" type = "password" required>
+
+                                        <label for = "newPassword"> Confirm Password </label>
+                                        <input id = "newPassword" placeholder = "Re-enter your password" type = "password" required>
+
+                                        <button type="submit" class="btn btn-primary" id = "submitRegistration"> <strong> Register </strong> </button>
+
+                                    </form>
+                                </div>
+                                <div class = "requiredExplained"> * required</div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id = "closeLogin" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a class = "myCart" href = "http://localhost/storefrontproject1/Cart">
+                    <svg width="40" height="40" viewBox="0 0 16 16" class="bi bi-cart3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                    </svg>
+                    <br> View Cart
+                </a>
+
+            </div>
+
+            <div class = "name-logo">
+                <div class = "wrap">
+                    <a class = "companyLogo" href = "http://localhost/storefrontproject1/mainPage">
+                        <img class = "logoImage" src = "../header-footer%20images/Company%20Logo.jpg" height = 125 width = 140>
+                    </a>
+                    <h1 class = "companyName"> Confection Perfection </h1>
+                </div>  
+            </div>
+
+            <svg class = "waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <defs>
+                    <filter id="f3" x="0" y="0" width="200%" height="200%">
+                      <feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
+                      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+                      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                    </filter>
+                </defs>
+
+                <path filter = "url(#f3)" fill="#ffc0cb" fill-opacity="1" d="M0,32L80,53.3C160,75,320,117,480,117.3C640,117,800,75,960,69.3C1120,64,1280,96,1360,112L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+            </svg>  <!-- getwaves.io svg wave line (added to bottom of background color) -->
+
+        </header>
+
+
+
+
+        <div class = "main checkout">
+
+            <br><h1 class = "checkoutHeader"> Checkout </h1> <br>
+
+            <form id = "form"> 
+                <div id = "collapsible">
+
+                    <h2 class = "collapsibleHeader"> 
+                        Billing Address 
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square billingPlus plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg> <!-- Bootstrap + icon -->
+                    </h2>
+
+                    <div class = "content" id = "billing">
+
+                            <div class = "field">
+                                <label for = "firstNameBilling"> First Name </label>
+                                <input class = "input" type = "text" id = "firstNameBilling" placeholder = "Enter your first name" required>
+                                <div class = "requiredExplainedCheckout"> * required</div>
+                            </div>
+
+                            <div>
+                                <label for = "lastNameBilling"> Last Name </label>
+                                <input class = "input" type = "text" id = "lastNameBilling" placeholder = "Enter your last name" required>
+                            </div>
+
+                            <div>
+                                <label for = "emailBilling"> Email </label>
+                                <input class = "input" type = "email" id = "emailBilling" placeholder = "Enter your email address" required>
+                            </div>
+
+                            <div>
+                                <label for = "address1Billing"> Address 1 </label>
+                                <input class = "input" type = "text" id = "address1Billing" placeholder = "Enter your address" required>
+                            </div>
+
+                            <div>
+                                <label for = "address2Billing"> Address 2 </label>
+                                <input class = "input" type = "text" id = "address2Billing" placeholder = "Enter your address">
+                            </div>
+
+                            <div>
+                                <label for = "cityBilling"> City </label>
+                                <input class = "input" type = "text" id = "cityBilling" placeholder = "Enter your city" required>
+                            </div>
+
+                            <div>
+                                <label for = "stateBilling"> State </label>
+                                <input class = "input" type = "text" id = "stateBilling" placeholder = "Enter your state" required>
+                            </div>
+
+                            <div>
+                                <label for = "zipCodeBilling"> Zip Code </label>
+                                <input class = "input" type = "number" id = "zipCodeBilling" max = "99950" min = "00501" placeholder = "Enter your zip code" required>
+                            </div>
+
+                            <div>
+                                <label for = "countryBilling"> Country </label>
+                                <input class = "input" type = "text" id = "countryBilling" placeholder = "Enter your country" required>
+                            </div>
+                        
+                    </div>
+
+                    <h2 class = "collapsibleHeader"> 
+                        Shipping Address 
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square shippingPlus plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg> <!-- Bootstrap + icon -->
+                    </h2>
+                    <div class = "content" id = "shipping">
+                        
+                            
+                            <div class = "field">
+                                <label for = "firstNameShipping"> First Name </label>
+                                <input class = "input" type = "text" id = "firstNameShipping" placeholder = "Enter your first name" required>
+                                <div class = "requiredExplainedCheckout"> * required</div>
+                            </div>
+
+                            <div>
+                                <label for = "lastNameShipping"> Last Name </label>
+                                <input class = "input" type = "text" id = "lastNameShipping" placeholder = "Enter your last name" required>
+                            </div>
+
+                            <div>
+                                <label for = "emailShipping"> Email </label>
+                                <input class = "input" type = "email" id = "emailShipping" placeholder = "Enter your email address" required>
+                            </div>
+
+                            <div>
+                                <label for = "address1Shipping"> Address 1 </label>
+                                <input class = "input" type = "text" id = "address1Shipping" placeholder = "Enter your address" required>
+                            </div>
+
+                            <div>
+                                <label for = "address2Shipping"> Address 2 </label>
+                                <input class = "input" type = "text" id = "address2Shipping" placeholder = "Enter your address">
+                            </div>
+
+                            <div>
+                                <label for = "cityShipping"> City </label>
+                                <input class = "input" type = "text" id = "cityShipping" placeholder = "Enter your city" required>
+                            </div>
+
+                            <div>
+                                <label for = "stateShipping"> State </label>
+                                <input class = "input" type = "text" id = "stateShipping" placeholder = "Enter your state" required>
+                            </div>
+
+                            <div>
+                                <label for = "zipCodeShipping"> Zip Code </label>
+                                <input class = "input" type = "text" id = "zipCodeShipping" max = "99950" min = "00501" placeholder = "Enter your zip code" required>
+                            </div>
+
+                            <div>
+                                <label for = "countryShipping"> Country </label>
+                                <input class = "input" type = "text" id = "countryShipping" placeholder = "Enter your country" required>
+                            </div>
+                    
+                    </div>
+
+                    <h2 class = "collapsibleHeader"> 
+                        Payment 
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square paymentPlus plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg> <!-- Bootstrap + icon -->
+                    </h2>
+                    <div class = "content paymentForm" id = "payment">
+                        
+
+                            <h4 class = "acceptedCardsHeader"> 
+                                Accepted Cards: 
+                                <div class = "requiredExplainedCheckout" id = "requiredExplainedPayment"> * required</div>
+                            </h4>
+                            <div> <img class = "ccIcons" src = "icons.png" alt = "Credit Cards" width = 200 height = 45 /> </div>
+
+                            <div>
+                                <label for = "nameOnCard"> Name On Card </label>
+                                <input class = "input" type = "text" id = "nameOnCard" placeholder = "Enter the card holder's name" required>
+                            </div>
+
+                            <div>
+                                <label for = "ccn"> Credit Card Number </label>
+                                <input class = "input" type = "text" id = "ccn" placeholder = "Enter the credit card number" required>
+                            </div>
+
+                            <div>
+                                <label for = "expMonth"> Exp Month </label>
+                                <input class = "input" type = "text" id = "expMonth" max = "12" min = "1" placeholder = "Enter the expiration month" required>
+                            </div>
+
+                            <div>
+                                <label for = "expYear"> Exp Year </label>
+                                <input class = "input" type = "text" id = "expYear" max = "2025" min = "2020" placeholder = "Enter the expiration year" required>
+                            </div>
+
+                            <div>
+                                <label for = "cvv"> CVV </label>
+                                <input class = "input" type = "text" id = "cvv" max = "9999" min = "000" placeholder = "Enter the three-digit security code" required>
+                            </div>
+
+                            <div>
+                                <label for = "zip"> Zip Code </label>
+                                <input class = "input" type = "text" id = "zip" max = "99950" min = "00501" placeholder = "Enter your zip code" required>
+                            </div>
+
+                        
+
+                    </div>
+
+                    <h2 class = "collapsibleHeader"> 
+                        Review Order 
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square reviewOrderPlus plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg> <!-- Bootstrap + icon -->
+                    </h2>
+
+                    <div class = "content" id = "review">
+
+                        <br> <div class = "orderSummary" id = "reviewSummary">
+                        
+                            <h2 class = "orderSummaryHeader"> ORDER SUMMARY: </h2>
+                            
+                            <table class = "summaryTable">
+                                <tr>
+                                    <td class = "left subtotal"> Subtotal (3 items) </td>
+                                    <td class = "right"> $14.37 </td> 
+                                </tr>
+    
+                                <tr>
+                                    <td class = "left"> Delivery Fee </td>
+                                    <td class = "right"> $5.99 </td>
+                                </tr>
+    
+                                <tr>
+                                    <td class = "left"> Tax </td>
+                                    <td class = "right"> $0.32 </td>
+                                </tr>
+    
+                                <tr class = "orderTotal">
+                                    <td class = "left"> ORDER TOTAL </td>
+                                    <td class = "right"> $20.68 </td>
+                                </tr>
+                            </table>
+                            
+                        </div> <br><br>
+
+                        <div class = "reviewItemsWrapper">
+                            <h1 class = "reviewOrderItemsHeader"> Order Items: </h1> <br>
+                            <div class = "reviewOrderItem">
+                                <div class = "col1">
+                                    <img class = "itemImage" src = "../mainPage/productimages/pastries/cannoli.jpg" alt = "Product Image" width = 100 height = 100 />
+                                </div>
+                        
+                                <div class = "col2">
+                                    <div class = "itemTitle"> 
+                                        Cannoli &ensp; x 2
+                                    </div>
+                                </div>
+                        
+                                <div class = "col3">
+                                    <p class = "reviewOrderItemPrice"> $2.50 </p> 
+                                </div>
+                            </div> <br class = "clear">
+
+
+                            <div class = "reviewOrderItem">
+                                <div class = "col1">
+                                    <img class = "itemImage" src = "../mainPage/productimages/pastries/biscotti.jpg" alt = "Product Image" width = 100 height = 100 />
+                                </div>
+                        
+                                <div class = "col2">
+                                    <div class = "itemTitle"> 
+                                        Biscotti &ensp; x 3
+                                    </div>
+                                </div> 
+                        
+                                <div class = "col3">
+                                    <p class = "reviewOrderItemPrice"> $2.29 </p> 
+                                </div>
+                                <br class = "clear">
+                            </div> <br class = "clear">
+
+
+                            <div class = "reviewOrderItem">
+                                <div class = "col1">
+                                    <img class = "itemImage" src = "../mainPage/productimages/muffins/AppleMuffin.jpg" alt = "Product Image" width = 100 height = 100 />
+                                </div>
+                        
+                                <div class = "col2">
+                                    <div class = "itemTitle"> 
+                                        Apple Muffin &ensp; x 1
+                                    </div>
+                                </div>
+                        
+                                <div class = "col3">
+                                    <p class = "reviewOrderItemPrice"> $2.50 </p> 
+                                </div>
+                                <br class = "clear">
+                            </div>
+                            <br><br>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+
+            <br><br>
+            <!-- Button trigger modal -->
+            <a class = "finishOrder" href = "#"> 
+                <button type="button" class = "placeOrder" data-toggle="modal" data-target="#placeOrderModal" data-backdrop="static" data-keyboard="false" onclick = 'countdownTimer()'> 
+                    <h2> Place Order </h2> 
+                </button> 
+            </a>
+            <br><br>
+  
+            <!-- Imported Bootstrap Modal -->
+            <div class="modal fade" id="placeOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content" id = "popup">
+                        <div class="modal-header">
+                            <h2 class = "modaltitle" id = "exampleModalLongTitle"> YOUR ORDER HAS BEEN PLACED!!! </h2>
+                        </div>
+
+                        <div class="modal-body">
+                            
+                            <h3> Thank You For Shopping At Confection Perfection! </h3>
+                            <h4> Your Order Number is #GSHMXD00T000QKL </h4> <br>
+
+                            <p> 
+                                An email confirmation has been mailed to you. <br>
+                                You will be redirected to the main page in <span id = "countdown"> 15 </span> seconds. 
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <footer class = "footer">
+
+            <div class = "footerTop">
+                <div class = "column">
+                    <h4 class = "topic"> Shipping & Handling </h4>
+                    <div class = columnContent> 
+                        <ul class = "shippingAndHandlingOptions">
+                            <li> <a href = "#"> Order Status & Tracking </a> </li>
+                            <li> <a href = "#"> Order Pickup </a> </li>
+                            <li> <a href = "#"> Shipping & Delivery </a> </li>
+                            <li> <a href = "#"> Payment & Tax </a> </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class = "column">
+                    <h4 class = "topic"> Stores & Corporate </h4>
+                    <div class = columnContent> 
+                        <ul class = "storesAndCorporateOptions">
+                            <li> <a href = "#"> Find Store Locations </a> </li>
+                            <li> <a href = "#"> About Us </a> </li>
+                            <li> <a href = "#"> Careers </a> </li>
+                            <li> <a href = "#"> Gift Cards </a> </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class = "column" id = "customerServiceColumn">
+                    <h4 class = "topic"> Customer Service </h4>
+                    <div class = columnContent> 
+                        <ul class = "customerServiceOptions">
+                            <li> <a class = "helpCenter" href = "#"> FAQs & Help Center </a> </li>
+                            <li> 1.800.761.7463 </li>
+                            <li> <a class = "email" href = "mailTo: customerservice@confectionperfection.com"> customerservice@confectionperfection.com </a> </li>
+                        </ul>
+                        <div class = "socialMedia">
+                            <a class = "social" href = "https://twitter.com" target = "_blank">
+                                <img src = "../header-footer%20images/Social%20Media%20Icon%20Images/twitter.png" alt = "Twitter" height = "40" width = "40" /> 
+                            </a>
+
+                            <a class = "social" href = "https://www.facebook.com" target = "_blank">
+                                <img src="../header-footer%20images/Social%20Media%20Icon%20Images/facebook.png" alt="Facebook" height = "40" width = "40">
+                            </a>
+
+                            <a class="social" href = "https://www.pinterest.com" target = "_blank">
+                                <img src="../header-footer%20images/Social%20Media%20Icon%20Images/pinterest.png" alt="Pinterest" height = "45" width = "45">
+                            </a>
+
+                            <a class="social" href = "https://www.instagram.com/" target = "_blank">
+                                <img src="../header-footer%20images/Social%20Media%20Icon%20Images/instagram.png" alt="Instagram" height = "45" width = "45" >
+                            </a>
+
+                            <a class="social" href = "https://www.snapchat.com/" target = "_blank">
+                                <img src="../header-footer%20images/Social%20Media%20Icon%20Images/snapchat.png" alt="SnapChat" height = "40" width = "50" >
+                            </a>
+
+                            <a class="social" href = "https://www.youtube.com/" target = "_blank">
+                                <img src="../header-footer%20images/Social%20Media%20Icon%20Images/youtube.png" alt="YouTube" height = "50" width = "50" >
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "footerBottom"> 
+                <div class = "emailSignUp">
+                    <div class = "signUpOffer"> SIGN UP FOR CONFECTION PERFECTION NEWS! </div>
+                    <form class = "enterEmail">
+                        <input type = "text" id = "emailInput" name = "emailInput" value = " Your Email Address" onfocus = "this.value = ''">
+                        <input type="submit" class="btn btn-info" value="SIGN UP">
+                    </form>
+                </div>
+
+                <div class = "policies">
+                    <a href = "#" class = "innerPolicies"> Privacy Policy</a> 
+                    <p> &ensp; | &ensp; </p>
+                    <a href = "#" class = "innerPolicies"> Terms and Conditions </a>
+                </div>
+
+                <div class = "copyright"> Copyright &copy; 2020 Devorah Levi <br> All Rights Reserved </div>
+            </div>
+            
+        </footer>
+    </body>
+
+</html>
